@@ -1,0 +1,725 @@
+<!doctype html>
+<html lang="fr" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nathanel Darbouka — Darbouka live pour mariages et soirées</title>
+<meta name="description" content="Nathanel Darbouka : percussions orientales en live pour mariages, henné, bar et bat mitsva, anniversaires et soirées privées. Réservez votre date.">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Manrope:wght@300;400;500;600&family=Frank+Ruhl+Libre:wght@400;500&family=Heebo:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script>
+/* Langue : ?lang= > choix mémorisé > pays (fuseau horaire) — Israël : hébreu, France & pays francophones : français, sinon anglais */
+(function(){
+  var L = ['fr', 'en', 'he'], lang;
+  try { var q = new URLSearchParams(location.search).get('lang'); if (L.indexOf(q) > -1) lang = q; } catch (e){}
+  if (!lang) try { var s = localStorage.getItem('lang'); if (L.indexOf(s) > -1) lang = s; } catch (e){}
+  if (!lang){
+    var FR = ['Europe/Paris', 'Europe/Monaco', 'Africa/Algiers', 'Africa/Tunis', 'Africa/Casablanca', 'Africa/Dakar', 'Africa/Bamako', 'Africa/Conakry',
+      'Africa/Ouagadougou', 'Africa/Niamey', 'Africa/Ndjamena', 'Africa/Bangui', 'Africa/Brazzaville', 'Africa/Kinshasa', 'Africa/Lubumbashi', 'Africa/Libreville',
+      'Africa/Douala', 'Africa/Malabo', 'Africa/Lome', 'Africa/Porto-Novo', 'Africa/Djibouti', 'Africa/Kigali', 'Africa/Bujumbura', 'Indian/Antananarivo',
+      'Indian/Comoro', 'Indian/Reunion', 'Indian/Mayotte', 'Indian/Kerguelen', 'America/Martinique', 'America/Guadeloupe', 'America/Cayenne',
+      'America/Port-au-Prince', 'America/Miquelon', 'America/St_Barthelemy', 'America/Marigot', 'Pacific/Noumea', 'Pacific/Tahiti', 'Pacific/Marquesas',
+      'Pacific/Gambier', 'Pacific/Wallis'];
+    // Pays multilingues ou fuseaux partagés : français seulement si le navigateur est en français
+    var MIX = ['Europe/Brussels', 'Europe/Zurich', 'Europe/Luxembourg', 'America/Toronto', 'America/Montreal', 'America/Moncton', 'America/Halifax',
+      'Africa/Abidjan', 'Africa/Lagos', 'Africa/Maputo', 'Indian/Mauritius', 'Indian/Mahe'];
+    var tz = ''; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e){}
+    var nl = ((navigator.languages && navigator.languages[0]) || navigator.language || '').toLowerCase();
+    if (tz === 'Asia/Jerusalem' || tz === 'Asia/Tel_Aviv') lang = 'he';
+    else if (FR.indexOf(tz) > -1) lang = 'fr';
+    else if (MIX.indexOf(tz) > -1 && nl.indexOf('fr') === 0) lang = 'fr';
+    else lang = 'en';
+  }
+  var r = document.documentElement; r.lang = lang; r.dir = lang === 'he' ? 'rtl' : 'ltr';
+})();
+</script>
+<style>
+:root{
+  --bg:#000; --fg:#f3efe7; --muted:#8b9099; --text2:#b9bcc2;
+  --blue:#0a84ff; --blue-rgb:10,132,255; --line:rgba(255,255,255,.1);
+  --serif:'Cinzel', 'Frank Ruhl Libre', Georgia, 'Times New Roman', serif;
+  --sans:'Manrope', 'Heebo', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  color-scheme:dark; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+/* Site volontairement sombre dans tous les thèmes */
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#000; --fg:#f3efe7; } }
+:root[data-theme="dark"], :root[data-theme="light"]{ --bg:#000; --fg:#f3efe7; }
+*,*::before,*::after{ box-sizing:inherit; }
+html{ scroll-padding-top:env(safe-area-inset-top,0px); background:var(--bg); }
+body{ margin:0; background:var(--bg); color:var(--fg); font-family:var(--sans); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+a{ color:inherit; }
+
+#gl{ position:fixed; inset:0; width:100%; height:100%; display:block; z-index:0; opacity:0; transition:opacity 1.4s ease; }
+html.gl-ready #gl{ opacity:1; }
+.fallback{ position:fixed; inset:0; z-index:0; display:none; background:url("img/darbouka-16x9.webp") center / contain no-repeat #000; }
+@media (max-aspect-ratio: 4/5){ .fallback{ background-image:url("img/darbouka-9x16.webp"); } }
+html.no-webgl .fallback{ display:block; }
+html.no-webgl #gl{ display:none; }
+
+.nav{ position:fixed; top:0; left:0; right:0; z-index:50; display:flex; justify-content:space-between; align-items:center;
+  padding:calc(env(safe-area-inset-top,0px) + 16px) clamp(18px,4vw,48px) 16px; background:linear-gradient(to bottom, rgba(0,0,0,.75), rgba(0,0,0,0)); pointer-events:none; }
+.nav > *{ pointer-events:auto; }
+.logo{ font-family:var(--serif); letter-spacing:.3em; font-size:14px; text-decoration:none; line-height:1; }
+.logo small{ display:block; font-family:var(--sans); letter-spacing:.55em; font-size:8px; color:var(--muted); margin-top:5px; }
+
+.btn{ display:inline-flex; align-items:center; gap:10px; border-radius:999px; padding:15px 28px; font-weight:600; font-size:15px; text-decoration:none; transition:box-shadow .3s, border-color .3s; }
+.btn-primary{ background:var(--blue); color:#fff; box-shadow:0 0 0 1px rgba(var(--blue-rgb),.7), 0 8px 34px rgba(var(--blue-rgb),.45); }
+.btn-primary:hover{ box-shadow:0 0 0 1px rgba(var(--blue-rgb),1), 0 10px 56px rgba(var(--blue-rgb),.75); }
+.btn-ghost{ border:1px solid var(--line); background:rgba(255,255,255,.04); color:var(--fg); }
+.btn-ghost:hover{ border-color:rgba(var(--blue-rgb),.6); }
+.btn-sm{ padding:10px 18px; font-size:13px; }
+
+/* Sélecteur de langue */
+.nav-actions{ display:flex; align-items:center; gap:10px; }
+.lang{ position:relative; }
+html.no-js .lang{ display:none; }
+.lang-btn{ display:inline-flex; align-items:center; gap:7px; height:38px; padding:0 12px; border-radius:999px; border:1px solid var(--line); background:rgba(255,255,255,.06);
+  color:var(--fg); cursor:pointer; -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); transition:border-color .3s; }
+.lang-btn:hover, .lang.open .lang-btn{ border-color:rgba(var(--blue-rgb),.6); }
+.lang-btn:focus-visible, .lang-menu button:focus-visible{ outline:2px solid var(--blue); outline-offset:2px; }
+.lang-btn svg.caret{ width:10px; height:10px; transition:transform .25s; }
+.lang.open .lang-btn svg.caret{ transform:rotate(180deg); }
+.flag{ display:block; width:21px; height:15px; border-radius:3px; overflow:hidden; flex:none; box-shadow:0 0 0 1px rgba(255,255,255,.18); }
+.flag svg{ display:block; width:100%; height:100%; }
+.lang-menu{ position:absolute; top:calc(100% + 8px); right:0; min-width:168px; margin:0; padding:6px; list-style:none; background:rgba(12,12,14,.94);
+  -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border:1px solid var(--line); border-radius:14px; box-shadow:0 18px 50px rgba(0,0,0,.6);
+  opacity:0; visibility:hidden; transform:translateY(-6px); transition:opacity .2s, transform .2s, visibility .2s; }
+.lang.open .lang-menu{ opacity:1; visibility:visible; transform:none; }
+.lang-menu button{ width:100%; display:flex; align-items:center; gap:11px; padding:10px 12px; border:0; border-radius:10px; background:none; color:var(--fg);
+  font:500 14px var(--sans); cursor:pointer; text-align:left; }
+.lang-menu button:hover{ background:rgba(var(--blue-rgb),.14); }
+.lang-menu button[aria-current="true"]{ color:var(--blue); }
+
+main{ position:relative; z-index:1; }
+.panel{ position:relative; min-height:100vh; min-height:100svh; display:flex; align-items:center; padding:90px 7vw; }
+.panel.text-left{ justify-content:flex-start; }
+.panel.text-right{ justify-content:flex-end; }
+.panel.text-bottom{ flex-direction:column; justify-content:flex-end; align-items:center; text-align:center; padding-bottom:11vh; }
+.panel.text-bottom .block{ width:min(640px, 90vw); }
+.block{ width:min(440px, 40vw); }
+.eyebrow{ text-transform:uppercase; letter-spacing:.35em; font-size:12px; color:var(--blue); margin:0 0 16px; }
+.block h2{ font-family:var(--serif); font-weight:500; font-size:clamp(2.2rem,4.4vw,4rem); line-height:1.05; letter-spacing:.03em; margin:0 0 18px; }
+.block h2 em{ font-style:normal; color:var(--blue); text-shadow:0 0 30px rgba(var(--blue-rgb),.6); }
+.block p{ margin:0; color:var(--text2); font-weight:300; line-height:1.75; font-size:clamp(1rem,1.25vw,1.12rem); }
+.block .also{ margin-top:14px; color:var(--muted); font-size:.95rem; }
+
+/* HERO */
+.hero{ justify-content:center; text-align:center; flex-direction:column; }
+.kicker{ text-transform:uppercase; letter-spacing:.32em; font-size:12px; color:var(--muted); margin:0 0 20px; }
+.kicker b{ color:var(--blue); font-weight:600; }
+.title{ font-family:var(--serif); font-weight:500; font-size:clamp(2.4rem, 10.5vw, 9rem); letter-spacing:.08em; line-height:1; margin:0; overflow:hidden; padding:.08em 0 .06em; text-shadow:0 0 50px rgba(0,0,0,.9); }
+.title .ch{ display:inline-block; animation:rise 1.2s cubic-bezier(.2,.8,.2,1) both; animation-delay:calc(.25s + var(--i) * .06s); }
+@keyframes rise{ from{ transform:translateY(110%); opacity:0; } to{ transform:none; opacity:1; } }
+.sub{ font-size:clamp(1.05rem,1.8vw,1.35rem); color:#dcd8cf; margin:22px 0 32px; font-weight:300; text-shadow:0 0 30px rgba(0,0,0,.9); }
+.fade-in{ animation:fadeUp 1s ease both; animation-delay:var(--d, .8s); }
+@keyframes fadeUp{ from{ opacity:0; transform:translateY(20px); } to{ opacity:1; transform:none; } }
+.hint{ position:absolute; left:50%; bottom:calc(env(safe-area-inset-bottom,0px) + 26px); transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:10px; font-size:10px; letter-spacing:.4em; text-transform:uppercase; color:var(--muted); }
+.hint i{ width:1px; height:44px; background:linear-gradient(var(--blue), transparent); transform-origin:top; animation:drip 1.8s ease-in-out infinite; }
+@keyframes drip{ 0%{transform:scaleY(0); opacity:1} 50%{transform:scaleY(1); opacity:1} 100%{transform:scaleY(1); opacity:0} }
+
+/* Déroulé */
+.steps{ list-style:none; margin:26px 0 0; padding:0; display:grid; gap:22px; }
+.steps li{ display:grid; grid-template-columns:48px 1fr; gap:14px; align-items:start; }
+.steps b{ font-family:var(--serif); font-weight:500; color:var(--blue); font-size:1.1rem; letter-spacing:.1em; padding-top:3px; }
+.steps h3{ font-family:var(--serif); font-weight:500; font-size:1.2rem; margin:0 0 4px; }
+
+/* Contact */
+.contact{ flex-direction:column; justify-content:flex-end; align-items:center; text-align:center; padding-bottom:12vh; }
+.contact .block{ width:min(720px, 92vw); }
+.contact h2{ font-size:clamp(2.4rem,5.5vw,4.6rem); }
+.actions{ display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:28px; }
+.info{ margin-top:26px; display:flex; flex-wrap:wrap; gap:8px 24px; justify-content:center; color:var(--muted); font-size:14px; }
+
+footer{ position:relative; z-index:1; display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; border-top:1px solid var(--line); color:#6b7078; font-size:13px;
+  background:rgba(0,0,0,.6); padding:26px clamp(20px,6vw,90px) calc(26px + env(safe-area-inset-bottom,0px)); }
+
+/* Apparition des textes */
+html.js .reveal{ opacity:0; transform:translateY(34px); transition:opacity .9s ease, transform 1s cubic-bezier(.2,.7,.2,1); transition-delay:var(--d, 0s); }
+html.js .reveal.in{ opacity:1; transform:none; }
+
+/* Mobile : darbouka en haut, texte en bas */
+@media (max-aspect-ratio: 4/5){
+  .panel{ padding:90px 6vw calc(env(safe-area-inset-bottom,0px) + 7vh); align-items:flex-end; }
+  .panel.text-left, .panel.text-right, .panel.text-bottom{ justify-content:center; }
+  .panel:not(.hero) .block{ width:100%; max-width:520px; text-align:center; background:rgba(0,0,0,.5); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+    border:1px solid var(--line); border-radius:22px; padding:24px 22px; }
+  .hero{ align-items:center; justify-content:flex-end; padding-bottom:18vh; }
+  .steps li{ text-align:start; }
+  .contact .block{ background:rgba(0,0,0,.55); }
+}
+
+/* Hébreu : lecture de droite à gauche, mais la mise en page (côté texte / côté darbouka) reste identique */
+html[dir="rtl"] .nav, html[dir="rtl"] .panel{ direction:ltr; }
+html[dir="rtl"] .panel .block, html[dir="rtl"] .hero > p, html[dir="rtl"] .hero > .btn, html[dir="rtl"] .hint{ direction:rtl; }
+html[lang="he"] .eyebrow, html[lang="he"] .kicker, html[lang="he"] .hint{ letter-spacing:.06em; font-size:13px; }
+html[lang="he"] .block h2, html[lang="he"] .steps h3{ letter-spacing:0; }
+html[lang="he"] .block p{ line-height:1.8; }
+@media (prefers-reduced-motion: reduce){ .title .ch, .fade-in, .hint i{ animation:none; } html.js .reveal{ transition:none; } }
+</style>
+</head>
+<body>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="fallback" role="img" aria-label="Darbouka noire en nacre gravée Nathanel Darbouka" data-i18n-aria="fallback"></div>
+
+<header class="nav">
+  <a class="logo" href="#top">NATHANEL<small>DARBOUKA</small></a>
+  <div class="nav-actions">
+    <div class="lang" id="lang">
+      <button class="lang-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="lang-menu" aria-label="Choisir la langue" data-i18n-aria="lang.label">
+        <span class="flag" data-flag></span>
+        <svg class="caret" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3.5 5 6.5 8 3.5"/></svg>
+      </button>
+      <ul class="lang-menu" id="lang-menu">
+        <li><button type="button" data-lang="fr"><span class="flag" data-flag="fr"></span><span lang="fr">Français</span></button></li>
+        <li><button type="button" data-lang="en"><span class="flag" data-flag="en"></span><span lang="en">English</span></button></li>
+        <li><button type="button" data-lang="he"><span class="flag" data-flag="he"></span><span lang="he" dir="rtl">עברית</span></button></li>
+      </ul>
+    </div>
+    <a class="btn btn-primary btn-sm" href="#contact" data-i18n="nav.book">Réserver</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="panel hero" data-pose="hero">
+    <p class="kicker fade-in" style="--d:.6s" data-i18n="hero.kicker">Darbouka live <b>·</b> Mariages <b>·</b> Soirées</p>
+    <h1 class="title" dir="ltr">NATHANEL</h1>
+    <p class="sub fade-in" style="--d:1s" data-i18n="hero.sub">Le rythme qui fait lever la salle.</p>
+    <a class="btn btn-primary fade-in" style="--d:1.2s" href="#contact" data-i18n="hero.cta">Réserver ma date</a>
+    <div class="hint"><span data-i18n="hero.scroll">Défiler</span><i></i></div>
+  </section>
+
+  <section class="panel text-left" data-pose="p1">
+    <div class="block">
+      <p class="eyebrow reveal" data-i18n="p1.eyebrow">L'expérience</p>
+      <h2 class="reveal" style="--d:.1s" data-i18n="p1.title">Doum. Tek.<br><em>Tek.</em></h2>
+      <p class="reveal" style="--d:.2s" data-i18n="p1.text">Chaque frappe fait vibrer la salle. Des rythmes orientaux joués en live, pour que vos invités ne quittent plus la piste.</p>
+    </div>
+  </section>
+
+  <section class="panel text-right" data-pose="p2" id="prestations">
+    <div class="block">
+      <p class="eyebrow reveal" data-i18n="p2.eyebrow">Prestation 01</p>
+      <h2 class="reveal" style="--d:.1s" data-i18n="p2.title">Mariages</h2>
+      <p class="reveal" style="--d:.2s" data-i18n="p2.text">Entrée des mariés, ouverture du bal, sets de danse : la darbouka qui fait monter l'ambiance du début à la fin de la soirée.</p>
+    </div>
+  </section>
+
+  <section class="panel text-right" data-pose="p3">
+    <div class="block">
+      <p class="eyebrow reveal" data-i18n="p3.eyebrow">Prestation 02</p>
+      <h2 class="reveal" style="--d:.1s" data-i18n="p3.title">Henné</h2>
+      <p class="reveal" style="--d:.2s" data-i18n="p3.text">Des rythmes orientaux traditionnels pour accompagner la cérémonie et faire danser les deux familles.</p>
+    </div>
+  </section>
+
+  <section class="panel text-left" data-pose="p4">
+    <div class="block">
+      <p class="eyebrow reveal" data-i18n="p4.eyebrow">Prestation 03</p>
+      <h2 class="reveal" style="--d:.1s" data-i18n="p4.title">Bar &amp; Bat Mitsva</h2>
+      <p class="reveal" style="--d:.2s" data-i18n="p4.text">Une entrée spectaculaire et des sets qui font danser toutes les générations.</p>
+    </div>
+  </section>
+
+  <section class="panel text-bottom" data-pose="p5">
+    <div class="block">
+      <p class="eyebrow reveal" data-i18n="p5.eyebrow">Prestation 04</p>
+      <h2 class="reveal" style="--d:.1s" data-i18n="p5.title">Anniversaires &amp; soirées</h2>
+      <p class="reveal" style="--d:.2s" data-i18n="p5.text">Un live percussion pour transformer une soirée privée en vraie fête.</p>
+      <p class="also reveal" style="--d:.3s" data-i18n="p5.also">Et aussi : galas, soirées d'entreprise, événements associatifs.</p>
+    </div>
+  </section>
+
+  <section class="panel text-right" data-pose="p6" id="deroule">
+    <div class="block">
+      <p class="eyebrow reveal" data-i18n="p6.eyebrow">Le déroulé</p>
+      <h2 class="reveal" style="--d:.1s" data-i18n="p6.title">Comment ça se passe</h2>
+      <ol class="steps">
+        <li class="reveal" style="--d:.2s"><b>01</b><div><h3 data-i18n="step1.title">Vous me contactez</h3><p data-i18n="step1.text">Date, lieu, type d'événement : quelques infos suffisent.</p></div></li>
+        <li class="reveal" style="--d:.3s"><b>02</b><div><h3 data-i18n="step2.title">On prépare l'ambiance</h3><p data-i18n="step2.text">Moments clés, style, coordination avec votre DJ ou orchestre.</p></div></li>
+        <li class="reveal" style="--d:.4s"><b>03</b><div><h3 data-i18n="step3.title">Le jour J</h3><p data-i18n="step3.text">Au premier coup de darbouka, la salle se lève.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="panel contact" data-pose="contact" id="contact">
+    <div class="block">
+      <p class="eyebrow reveal" data-i18n="contact.eyebrow">Contact</p>
+      <h2 class="reveal" style="--d:.1s" data-i18n="contact.title">Réservez votre date</h2>
+      <p class="reveal" style="--d:.2s" data-i18n="contact.text">Dites-moi la date, le lieu et le type de soirée : je vous réponds avec une proposition sur mesure.</p>
+      <div class="actions reveal" style="--d:.3s">
+        <a class="btn btn-primary" data-wa href="https://wa.me/972587299586?text=Bonjour%20Nathanel%2C%20je%20souhaite%20r%C3%A9server%20une%20darbouka%20pour%20mon%20%C3%A9v%C3%A9nement." target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.7-5.2A8.5 8.5 0 1 1 21 12z"/></svg>
+          <span data-i18n="contact.wa">Écrire sur WhatsApp</span></a>
+        <a class="btn btn-ghost" href="https://www.instagram.com/nathanel_darbouka/" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn btn-ghost" href="https://www.tiktok.com/@nathanelbensimon" target="_blank" rel="noopener">TikTok</a>
+      </div>
+      <div class="info reveal" style="--d:.4s"><span dir="ltr">+972 58-729-9586</span><span data-i18n="contact.area">Paris &amp; Île-de-France</span><span data-i18n="contact.quote">Devis sur demande</span></div>
+    </div>
+  </section>
+</main>
+<footer><span>© 2026 Nathanel Darbouka</span><span data-i18n="footer.credit">Site réalisé par Ethan Ayache</span></footer>
+
+<script>
+/* ---------- Traductions (FR = texte d'origine de la page ; EN traduit du FR ; HE traduit de l'EN) ---------- */
+(function(){
+  var root = document.documentElement;
+  var T = {
+    en: {
+      'meta.title': 'Nathanel Darbouka — Live darbuka for weddings and parties',
+      'meta.desc': 'Nathanel Darbouka: live Middle Eastern percussion for weddings, henna parties, bar and bat mitzvahs, birthdays and private parties. Book your date.',
+      'fallback': 'Black mother-of-pearl darbuka engraved with Nathanel Darbouka',
+      'lang.label': 'Choose language',
+      'nav.book': 'Book',
+      'hero.kicker': 'Live darbuka <b>·</b> Weddings <b>·</b> Parties',
+      'hero.sub': 'The beat that gets the whole room on its feet.',
+      'hero.cta': 'Book my date',
+      'hero.scroll': 'Scroll',
+      'p1.eyebrow': 'The experience',
+      'p1.title': 'Doum. Tek.<br><em>Tek.</em>',
+      'p1.text': 'Every beat makes the room vibrate. Middle Eastern rhythms played live, so your guests never leave the dance floor.',
+      'p2.eyebrow': 'Performance 01',
+      'p2.title': 'Weddings',
+      'p2.text': 'The couple’s grand entrance, opening the dance floor, dance sets: the darbuka that lifts the energy from the start of the night to the very end.',
+      'p3.eyebrow': 'Performance 02',
+      'p3.title': 'Henna',
+      'p3.text': 'Traditional Middle Eastern rhythms to accompany the ceremony and get both families dancing.',
+      'p4.eyebrow': 'Performance 03',
+      'p4.title': 'Bar &amp; Bat Mitzvah',
+      'p4.text': 'A spectacular entrance and sets that get every generation dancing.',
+      'p5.eyebrow': 'Performance 04',
+      'p5.title': 'Birthdays &amp; parties',
+      'p5.text': 'A live percussion show that turns a private party into a real celebration.',
+      'p5.also': 'Also available: galas, corporate events, community events.',
+      'p6.eyebrow': 'The process',
+      'p6.title': 'How it works',
+      'step1.title': 'You get in touch',
+      'step1.text': 'Date, venue, type of event: a few details are all I need.',
+      'step2.title': 'We plan the vibe',
+      'step2.text': 'Key moments, style, coordination with your DJ or band.',
+      'step3.title': 'The big day',
+      'step3.text': 'At the first beat of the darbuka, the whole room is on its feet.',
+      'contact.eyebrow': 'Contact',
+      'contact.title': 'Book your date',
+      'contact.text': 'Tell me the date, the venue and the type of event: I’ll get back to you with a tailor-made proposal.',
+      'contact.wa': 'Message on WhatsApp',
+      'contact.area': 'Paris &amp; Île-de-France',
+      'contact.quote': 'Quote on request',
+      'footer.credit': 'Website by Ethan Ayache',
+      'wa.msg': 'Hi Nathanel, I’d like to book a darbuka for my event.'
+    },
+    he: {
+      'meta.title': 'נתנאל דרבוקה — דרבוקה חיה לחתונות ולמסיבות',
+      'meta.desc': 'נתנאל דרבוקה: כלי הקשה מזרחיים בהופעה חיה לחתונות, חינות, בר ובת מצווה, ימי הולדת ומסיבות פרטיות. שריינו את התאריך שלכם.',
+      'fallback': 'דרבוקה שחורה משובצת אם הפנינה עם החריטה Nathanel Darbouka',
+      'lang.label': 'בחירת שפה',
+      'nav.book': 'להזמנה',
+      'hero.kicker': 'דרבוקה חיה <b>·</b> חתונות <b>·</b> מסיבות',
+      'hero.sub': 'הקצב שמעמיד את כל האולם על הרגליים.',
+      'hero.cta': 'שריינו את התאריך שלי',
+      'hero.scroll': 'גללו',
+      'p1.eyebrow': 'החוויה',
+      'p1.title': 'דום. טק.<br><em>טק.</em>',
+      'p1.text': 'כל מכה מרעידה את האולם. מקצבים מזרחיים בנגינה חיה, כדי שהאורחים שלכם לא יעזבו את רחבת הריקודים.',
+      'p2.eyebrow': 'הופעה 01',
+      'p2.title': 'חתונות',
+      'p2.text': 'הכניסה הגדולה של הזוג, פתיחת רחבת הריקודים, סטים של ריקודים: הדרבוקה שמרימה את האנרגיה מתחילת הערב ועד הרגע האחרון.',
+      'p3.eyebrow': 'הופעה 02',
+      'p3.title': 'חינה',
+      'p3.text': 'מקצבים מזרחיים מסורתיים שמלווים את הטקס ומרקידים את שתי המשפחות.',
+      'p4.eyebrow': 'הופעה 03',
+      'p4.title': 'בר ובת מצווה',
+      'p4.text': 'כניסה מרהיבה וסטים שמרקידים את כל הדורות.',
+      'p5.eyebrow': 'הופעה 04',
+      'p5.title': 'ימי הולדת ומסיבות',
+      'p5.text': 'הופעת כלי הקשה חיה שהופכת מסיבה פרטית לחגיגה אמיתית.',
+      'p5.also': 'זמין גם ל: ערבי גאלה, אירועי חברה, אירועי קהילה.',
+      'p6.eyebrow': 'התהליך',
+      'p6.title': 'איך זה עובד',
+      'step1.title': 'יוצרים איתי קשר',
+      'step1.text': 'תאריך, מקום, סוג האירוע: כמה פרטים זה כל מה שאני צריך.',
+      'step2.title': 'מתכננים את האווירה',
+      'step2.text': 'רגעי שיא, סגנון, תיאום עם הדי־ג׳יי או הלהקה שלכם.',
+      'step3.title': 'היום הגדול',
+      'step3.text': 'מהמכה הראשונה על הדרבוקה, כל האולם על הרגליים.',
+      'contact.eyebrow': 'צרו קשר',
+      'contact.title': 'שריינו את התאריך שלכם',
+      'contact.text': 'ספרו לי את התאריך, המקום וסוג האירוע: אחזור אליכם עם הצעה מותאמת אישית.',
+      'contact.wa': 'שלחו הודעה בוואטסאפ',
+      'contact.area': 'פריז ואזור איל-דה-פראנס',
+      'contact.quote': 'הצעת מחיר לפי בקשה',
+      'footer.credit': 'האתר נבנה על ידי Ethan Ayache',
+      'wa.msg': 'היי נתנאל, אני רוצה להזמין דרבוקה לאירוע שלי.'
+    }
+  };
+
+  var desc = document.querySelector('meta[name="description"]');
+  var nodes = [].slice.call(document.querySelectorAll('[data-i18n]'));
+  var ariaNodes = [].slice.call(document.querySelectorAll('[data-i18n-aria]'));
+  var fr = T.fr = { 'meta.title': document.title, 'meta.desc': desc.content, 'wa.msg': 'Bonjour Nathanel, je souhaite réserver une darbouka pour mon événement.' };
+  nodes.forEach(function(n){ fr[n.getAttribute('data-i18n')] = n.innerHTML; });
+  ariaNodes.forEach(function(n){ fr[n.getAttribute('data-i18n-aria')] = n.getAttribute('aria-label'); });
+
+  var us = '<svg viewBox="0 0 7410 3900" preserveAspectRatio="xMinYMid slice"><rect width="7410" height="3900" fill="#b22234"/>';
+  for (var i = 1; i < 13; i += 2) us += '<rect y="' + i * 300 + '" width="7410" height="300" fill="#fff"/>';
+  us += '<rect width="2964" height="2100" fill="#3c3b6e"/>';
+  for (var r = 0; r < 9; r++) for (var c = 0; c < (r % 2 ? 5 : 6); c++) us += '<circle cx="' + (247 + c * 494 + (r % 2 ? 247 : 0)) + '" cy="' + (210 + r * 210) + '" r="85" fill="#fff"/>';
+  var FLAGS = {
+    fr: '<svg viewBox="0 0 3 2" preserveAspectRatio="none"><rect width="1" height="2" fill="#0055a4"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ef4135"/></svg>',
+    he: '<svg viewBox="0 0 220 160" preserveAspectRatio="xMidYMid slice"><rect width="220" height="160" fill="#fff"/><rect y="15" width="220" height="25" fill="#0038b8"/><rect y="120" width="220" height="25" fill="#0038b8"/><path d="M110 50 136 95H84ZM110 110 136 65H84Z" fill="none" stroke="#0038b8" stroke-width="5.5"/></svg>',
+    en: us + '</svg>'
+  };
+  document.querySelectorAll('[data-flag]').forEach(function(f){ var k = f.getAttribute('data-flag'); if (k) f.innerHTML = FLAGS[k]; });
+
+  var box = document.getElementById('lang'), btn = box.querySelector('.lang-btn'), cur = btn.querySelector('[data-flag]');
+  function apply(lang){
+    var d = T[lang] || T.en;
+    root.lang = lang; root.dir = lang === 'he' ? 'rtl' : 'ltr';
+    document.title = d['meta.title']; desc.content = d['meta.desc'];
+    nodes.forEach(function(n){ n.innerHTML = d[n.getAttribute('data-i18n')]; });
+    ariaNodes.forEach(function(n){ n.setAttribute('aria-label', d[n.getAttribute('data-i18n-aria')]); });
+    document.querySelectorAll('[data-wa]').forEach(function(a){ a.href = 'https://wa.me/972587299586?text=' + encodeURIComponent(d['wa.msg']); });
+    cur.innerHTML = FLAGS[lang];
+    box.querySelectorAll('[data-lang]').forEach(function(b){ b.setAttribute('aria-current', b.getAttribute('data-lang') === lang ? 'true' : 'false'); });
+    window.dispatchEvent(new Event('langchange'));
+  }
+  function toggle(open){ box.classList.toggle('open', open); btn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+  btn.addEventListener('click', function(e){ e.stopPropagation(); toggle(!box.classList.contains('open')); });
+  box.querySelectorAll('[data-lang]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var lang = b.getAttribute('data-lang');
+      try { localStorage.setItem('lang', lang); } catch (e){}
+      apply(lang); toggle(false); btn.focus();
+    });
+  });
+  document.addEventListener('click', function(e){ if (!box.contains(e.target)) toggle(false); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && box.classList.contains('open')){ toggle(false); btn.focus(); } });
+
+  apply(T[root.lang] ? root.lang : 'fr');
+})();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
+<script>
+(function(){
+  var root = document.documentElement;
+  root.classList.remove('no-js'); root.classList.add('js');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var t = document.querySelector(a.getAttribute('href'));
+      if (t){ e.preventDefault(); t.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); }
+    });
+  });
+
+  var title = document.querySelector('.title');
+  if (title){
+    var txt = title.textContent.trim(); title.setAttribute('aria-label', txt);
+    title.innerHTML = txt.split('').map(function(c, i){ return '<span class="ch" aria-hidden="true" style="--i:' + i + '">' + c + '</span>'; }).join('');
+  }
+
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ e.target.classList.toggle('in', e.isIntersecting); }); }, { threshold: 0.2 });
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  } else { document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); }); }
+
+  /* ---------- 3D ---------- */
+  function fail(){ root.classList.add('no-webgl'); }
+  if (!window.THREE){ fail(); return; }
+  var canvas = document.getElementById('gl'), renderer;
+  try { renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, powerPreference: 'high-performance' }); }
+  catch (e){ fail(); return; }
+  var mobileUA = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobileUA ? 1.75 : 2));
+  renderer.setClearColor(0x000000, 1);
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 0.2;
+
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(26, 1, 0.1, 100);
+  var ELEV = 21.5 * Math.PI / 180;
+
+  /* Profil mesuré sur l'image (unités : rayon max = 1) */
+  var PH = [0.0, 0.042, 0.0837, 0.1245, 0.1673, 0.2101, 0.251, 0.2918, 0.3346, 0.3774, 0.4183, 0.4591, 0.5019, 0.5447, 0.5856, 0.6265, 0.6693, 0.7121, 0.7529, 0.7938, 0.8366, 0.8794, 0.9202, 0.9611, 1.0039, 1.0467, 1.0875, 1.1284, 1.1712, 1.214, 1.2549, 1.2957, 1.3385, 1.3813, 1.4226, 1.5058, 1.5914, 1.6732, 1.7572, 1.8405, 1.9245, 2.0078, 2.0918, 2.1751, 2.2591, 2.3424, 2.3852, 2.4981], PR = [0.9533, 0.9737, 0.9874, 0.9951, 0.999, 0.999, 0.9971, 0.9942, 0.9883, 0.9796, 0.9698, 0.9591, 0.9455, 0.93, 0.9134, 0.8949, 0.8745, 0.8512, 0.8259, 0.7996, 0.7685, 0.7335, 0.6984, 0.6556, 0.6099, 0.5749, 0.5409, 0.5039, 0.4728, 0.4494, 0.4319, 0.4173, 0.4056, 0.3969, 0.3911, 0.3901, 0.394, 0.4008, 0.4105, 0.4241, 0.4387, 0.4523, 0.4679, 0.4864, 0.5068, 0.5263, 0.5418, 0.5564];
+  var HALF = PH[PH.length - 1] / 2;
+  var ctrl = [];
+  for (var i = PH.length - 1; i >= 0; i--) ctrl.push(new THREE.Vector2(PR[i], HALF - PH[i]));
+  var prof = new THREE.SplineCurve(ctrl).getSpacedPoints(220);
+  var arcLen = new THREE.SplineCurve(ctrl).getLength();
+  function rAt(f){ var idx = Math.round((1 - f) * (prof.length - 1)); return prof[Math.max(0, Math.min(prof.length - 1, idx))].x; }
+
+  function mk(w, h){ var c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
+  function rng(seed){ return function(){ seed |= 0; seed = seed + 0x6D2B79F5 | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+  /* Mosaïque nacre / noir dessinée en code */
+  function buildMosaic(){
+    var W = mobileUA ? 2048 : 4096, Ht = W / 2, sc = W / 4096;
+    var cc = mk(W, Ht), g = cc.getContext('2d');
+    var mc = mk(W, Ht), m = mc.getContext('2d');
+    g.fillStyle = '#060607'; g.fillRect(0, 0, W, Ht);
+    m.fillStyle = '#000'; m.fillRect(0, 0, W, Ht);
+    var rnd = rng(11);
+    function R(a, b){ return a + (b - a) * rnd(); }
+    function pearl(){ return 'hsl(' + R(0, 360).toFixed(0) + ',' + R(6, 22).toFixed(0) + '%,' + R(76, 93).toFixed(0) + '%)'; }
+    function path(ctx, pts){ ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]); for (var k = 1; k < pts.length; k++) ctx.lineTo(pts[k][0], pts[k][1]); ctx.closePath(); }
+    function piece(pts){
+      var x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+      pts.forEach(function(p){ x0 = Math.min(x0, p[0]); y0 = Math.min(y0, p[1]); x1 = Math.max(x1, p[0]); y1 = Math.max(y1, p[1]); });
+      var gr = g.createLinearGradient(x0, y0, x1, y1); gr.addColorStop(0, pearl()); gr.addColorStop(1, pearl());
+      path(g, pts); g.fillStyle = gr; g.fill(); g.lineWidth = Math.max(0.6, 1.1 * sc); g.strokeStyle = 'rgba(10,10,12,.85)'; g.stroke();
+      path(m, pts); m.fillStyle = '#fff'; m.fill(); m.lineWidth = Math.max(0.7, 1.4 * sc); m.strokeStyle = '#000'; m.stroke();
+    }
+    function facet(pts){
+      var cx = 0, cy = 0; pts.forEach(function(p){ cx += p[0]; cy += p[1]; }); cx /= pts.length; cy /= pts.length;
+      for (var k = 0; k < pts.length; k++) piece([[cx, cy], pts[k], pts[(k + 1) % pts.length]]);
+    }
+    function black(pts){ path(g, pts); g.fillStyle = '#060607'; g.fill(); path(m, pts); m.fillStyle = '#000'; m.fill(); }
+    function band(f0, f1, aspect, tile, N){
+      var y0 = f0 * Ht, th = (f1 - f0) * Ht;
+      if (!N) N = Math.max(3, Math.round(2 * Math.PI * rAt((f0 + f1) / 2) / ((f1 - f0) * arcLen * aspect)));
+      var tw = W / N;
+      for (var k = 0; k < N; k++) tile(k * tw, y0, tw, th, k);
+      return N;
+    }
+    function line(f, t){ t = t * sc; var y = f * Ht, n = Math.round(W / 26), w = W / n; for (var k = 0; k < n; k++) piece([[k * w + sc, y - t / 2], [k * w + w - sc, y - t / 2], [k * w + w - sc, y + t / 2], [k * w + sc, y + t / 2]]); }
+    function tri(x, y, w, h){ facet([[x + w * .08, y + h * .94], [x + w * .5, y + h * .06], [x + w * .92, y + h * .94]]); }
+    function dia(x, y, w, h, sx, sy){ var cx = x + w / 2, cy = y + h / 2; return [[cx, cy - h * sy], [cx + w * sx, cy], [cx, cy + h * sy], [cx - w * sx, cy]]; }
+    function star(x, y, w, h, ro, ri){
+      var cx = x + w / 2, cy = y + h / 2;
+      for (var k = 0; k < 8; k++){
+        var a = k * Math.PI / 4 - Math.PI / 2, b1 = a - Math.PI / 8, b2 = a + Math.PI / 8;
+        piece([[cx, cy], [cx + Math.cos(b1) * ri * w, cy + Math.sin(b1) * ri * h], [cx + Math.cos(a) * ro * w, cy + Math.sin(a) * ro * h], [cx + Math.cos(b2) * ri * w, cy + Math.sin(b2) * ri * h]]);
+      }
+    }
+    function checker(f0, f1, rows){
+      var h = (f1 - f0) / rows, N = 0;
+      for (var r = 0; r < rows; r++){
+        (function(r){
+          N = band(f0 + r * h, f0 + (r + 1) * h, 1, function(x, y, w, hh, k){ if ((k + r) % 2 === 0) facet([[x + sc, y + sc], [x + w - sc, y + sc], [x + w - sc, y + hh - sc], [x + sc, y + hh - sc]]); }, N || undefined);
+        })(r);
+      }
+    }
+    // Bandes (positions mesurées sur l'image, 0 = haut, 1 = base)
+    line(0.010, 5);
+    band(0.018, 0.088, 0.95, tri);
+    line(0.100, 5);
+    checker(0.108, 0.128, 1);
+    band(0.140, 0.275, 1, function(x, y, w, h, k){
+      if (k % 2 === 0) star(x, y, w, h, .47, .2);
+      else { facet(dia(x, y, w, h, .36, .44)); black(dia(x, y, w, h, .15, .19)); }
+    });
+    line(0.292, 5);
+    checker(0.305, 0.345, 2);
+    band(0.357, 0.452, 1, function(x, y, w, h, k){ facet(dia(x, y, w, h, .44, .46)); if (k % 2) black(dia(x, y, w, h, .16, .18)); });
+    line(0.478, 5);
+    checker(0.492, 0.568, 3);
+    line(0.582, 5);
+    band(0.598, 0.650, 1, function(x, y, w, h){ facet(dia(x, y, w, h, .3, .42)); });
+    band(0.664, 0.786, 1, function(x, y, w, h, k){
+      if (k % 2 === 0) star(x, y, w, h, .47, .19);
+      else { facet(dia(x, y, w, h, .3, .44)); black(dia(x, y, w, h, .12, .18)); }
+    });
+    line(0.797, 5);
+    checker(0.806, 0.846, 2);
+    line(0.866, 5);
+    band(0.880, 0.914, 1, function(x, y, w, h){ facet(dia(x, y, w, h, .32, .42)); });
+    line(0.926, 5);
+    band(0.942, 0.992, 0.95, tri);
+    return { color: cc, mask: mc };
+  }
+
+  function buildHead(){
+    var S = 2048, c = mk(S, S), g = c.getContext('2d');
+    g.fillStyle = '#0c0c0e'; g.fillRect(0, 0, S, S);
+    var rnd = rng(3);
+    for (var k = 0; k < 9000; k++){ g.fillStyle = 'rgba(255,255,255,' + (rnd() * 0.025).toFixed(3) + ')'; g.fillRect(rnd() * S, rnd() * S, 1 + rnd() * 3, 1); }
+    var vg = g.createRadialGradient(S / 2, S / 2, S * 0.2, S / 2, S / 2, S * 0.5);
+    vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,.55)'); g.fillStyle = vg; g.fillRect(0, 0, S, S);
+    function spaced(text, font, y, spacing, color){
+      g.font = font; g.fillStyle = color; g.textBaseline = 'middle';
+      var ws = text.split('').map(function(ch){ return g.measureText(ch).width; });
+      var total = ws.reduce(function(a, b){ return a + b; }, 0) + spacing * (text.length - 1);
+      var x = S / 2 - total / 2;
+      text.split('').forEach(function(ch, i){ g.fillText(ch, x, y); x += ws[i] + spacing; });
+    }
+    spaced('NATHANEL', '500 ' + (S * 0.118) + 'px Cinzel, Georgia, serif', S * 0.47, S * 0.012, '#eeede8');
+    spaced('DARBOUKA', '500 ' + (S * 0.036) + 'px Cinzel, Georgia, serif', S * 0.565, S * 0.022, '#d7d5cf');
+    return c;
+  }
+
+  function radial(stops){
+    var c = mk(256, 256), g = c.getContext('2d'), gr = g.createRadialGradient(128, 128, 0, 128, 128, 128);
+    stops.forEach(function(s){ gr.addColorStop(s[0], s[1]); }); g.fillStyle = gr; g.fillRect(0, 0, 256, 256);
+    return new THREE.CanvasTexture(c);
+  }
+
+  var fontReady = (document.fonts && document.fonts.load) ? Promise.race([document.fonts.load('500 200px Cinzel'), new Promise(function(r){ setTimeout(r, 2500); })]) : Promise.resolve();
+
+  fontReady.then(function(){ try { init(); } catch (e){ console.error(e); fail(); } });
+
+  function init(){
+    // Environnement studio (reflets), teinté bleu
+    var env = new THREE.Scene(); env.background = new THREE.Color(0x020306);
+    function panel(w, h, x, y, z, c){ var p = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: c, side: THREE.DoubleSide })); p.position.set(x, y, z); p.lookAt(0, 0, 0); env.add(p); }
+    panel(7, 5, -6, 7, 6, new THREE.Color(1, 1, 1).multiplyScalar(3.0));
+    panel(1.4, 9, -8, 1, -5, new THREE.Color(0.55, 0.75, 1.3).multiplyScalar(2.2));
+    panel(1.4, 9, 8, 1, -5, new THREE.Color(0.55, 0.75, 1.3).multiplyScalar(2.2));
+    panel(4, 3, 6, 4, 6, new THREE.Color(0.8, 0.9, 1.2).multiplyScalar(0.6));
+    panel(12, 12, 0, -9, 0, new THREE.Color(0.04, 0.22, 1).multiplyScalar(0.22));
+    var pm = new THREE.PMREMGenerator(renderer);
+    scene.environment = pm.fromScene(env, 0.02).texture;
+
+    var maxAniso = renderer.capabilities.getMaxAnisotropy();
+    var mos = buildMosaic();
+    var colTex = new THREE.CanvasTexture(mos.color); colTex.encoding = THREE.sRGBEncoding; colTex.anisotropy = maxAniso; colTex.wrapS = THREE.RepeatWrapping;
+    var maskTex = new THREE.CanvasTexture(mos.mask); maskTex.anisotropy = maxAniso; maskTex.wrapS = THREE.RepeatWrapping;
+    var headTex = new THREE.CanvasTexture(buildHead()); headTex.encoding = THREE.sRGBEncoding; headTex.anisotropy = maxAniso;
+
+    var bodyMat = new THREE.MeshPhysicalMaterial({ map: colTex, roughness: 0.3, metalness: 0.05, clearcoat: 1, clearcoatRoughness: 0.07,
+      bumpMap: maskTex, bumpScale: 0.006, iridescence: 0.6, iridescenceMap: maskTex, iridescenceIOR: 1.35, iridescenceThicknessRange: [180, 420] });
+    var chrome = new THREE.MeshStandardMaterial({ color: 0xe8eaee, metalness: 1, roughness: 0.14 });
+    var headMat = new THREE.MeshStandardMaterial({ map: headTex, roughness: 0.72, metalness: 0 });
+    var ledMat = new THREE.MeshBasicMaterial({ color: 0x2f8cff, toneMapped: false });
+    var ledGlowMat = new THREE.MeshBasicMaterial({ color: 0x1470ff, transparent: true, opacity: 0.4, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false });
+    var RB = PR[PR.length - 1];
+
+    var drum = new THREE.Group();
+    drum.add(new THREE.Mesh(new THREE.LatheGeometry(prof, 256), bodyMat));
+    var head = new THREE.Mesh(new THREE.CircleGeometry(0.938, 128), headMat); head.rotation.x = -Math.PI / 2; head.position.y = HALF + 0.004; drum.add(head);
+    var rim = new THREE.Mesh(new THREE.TorusGeometry(0.955, 0.03, 32, 256), chrome); rim.rotation.x = Math.PI / 2; rim.position.y = HALF - 0.002; drum.add(rim);
+    var rim2 = new THREE.Mesh(new THREE.CylinderGeometry(0.962, 0.972, 0.03, 256, 1, true), chrome); rim2.position.y = HALF - 0.03; drum.add(rim2);
+    var baseRim = new THREE.Mesh(new THREE.TorusGeometry(RB, 0.016, 24, 200), chrome); baseRim.rotation.x = Math.PI / 2; baseRim.position.y = -HALF + 0.004; drum.add(baseRim);
+    var led = new THREE.Mesh(new THREE.TorusGeometry(RB - 0.012, 0.013, 16, 200), ledMat); led.rotation.x = Math.PI / 2; led.position.y = -HALF - 0.018; drum.add(led);
+    var ledGlow = new THREE.Mesh(new THREE.TorusGeometry(RB - 0.01, 0.04, 16, 200), ledGlowMat); ledGlow.rotation.x = Math.PI / 2; ledGlow.position.y = -HALF - 0.015; drum.add(ledGlow);
+
+    // Hiérarchie : scène > bascule > rotation > darbouka (+ reflet miroir)
+    var stage = new THREE.Group(); scene.add(stage);
+    var tilt = new THREE.Group(); stage.add(tilt);
+    var pivot = new THREE.Group(); pivot.add(drum); tilt.add(pivot);
+    var mirror = new THREE.Group(); mirror.scale.y = -1; stage.add(mirror);
+    var mtilt = new THREE.Group(); mirror.add(mtilt);
+    var mpivot = new THREE.Group(); mpivot.add(drum.clone()); mtilt.add(mpivot);
+    var blue = new THREE.PointLight(0x1a6fff, 4, 1.3, 2); blue.position.set(0, -HALF - 0.08, 0); tilt.add(blue);
+
+    var floorAlpha = radial([[0, '#b8b8b8'], [0.35, '#d6d6d6'], [1, '#ffffff']]);
+    var floor = new THREE.Mesh(new THREE.CircleGeometry(9, 96), new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, alphaMap: floorAlpha }));
+    floor.rotation.x = -Math.PI / 2; stage.add(floor);
+    var veilMat = new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0 });
+    var veil = new THREE.Mesh(new THREE.CircleGeometry(9, 96), veilMat); veil.rotation.x = -Math.PI / 2; stage.add(veil);
+    var glowTex = radial([[0, 'rgba(255,255,255,1)'], [0.2, 'rgba(255,255,255,.55)'], [0.55, 'rgba(255,255,255,.15)'], [1, 'rgba(255,255,255,0)']]);
+    var floorGlowMat = new THREE.MeshBasicMaterial({ map: glowTex, color: 0x0a66ff, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false });
+    var floorGlow = new THREE.Mesh(new THREE.CircleGeometry(2.2, 64), floorGlowMat); floorGlow.rotation.x = -Math.PI / 2; stage.add(floorGlow);
+
+    scene.add(new THREE.AmbientLight(0x8fb0ff, 0.05));
+    var key = new THREE.DirectionalLight(0xffffff, 1.5); key.position.set(-4, 5, 5); scene.add(key);
+    var rimL = new THREE.DirectionalLight(0x8fb8ff, 1.3); rimL.position.set(-5, 2, -5); scene.add(rimL);
+    var rimR = new THREE.DirectionalLight(0x8fb8ff, 1.3); rimR.position.set(5, 2, -5); scene.add(rimR);
+
+    /* Poses (x, y en demi-écran ; s = taille ; tx = bascule vers l'avant ; tz = inclinaison ; spin = tours supplémentaires) */
+    var PI = Math.PI;
+    function P(x, y, s, l, tx, tz, spin){ return { x: x, y: y, s: s, l: l, tx: tx || 0, tz: tz || 0, spin: spin || 0 }; }
+    var POSES = {
+      d: { hero0: P(0, 0, 1.1, 0.1), hero1: P(0, 0, 1, 1),
+           p1: P(0.48, 0.02, 1, 1, 0.35, 0.18, PI),          // à droite, penchée vers le texte
+           p2: P(-0.46, -0.02, 1.15, 1, 0.1, -0.12, 2 * PI),  // à gauche, plus proche
+           p3: P(-0.5, 0.08, 0.85, 1, 0.75, -0.3, 3 * PI),    // reste à gauche, basculée « position de jeu »
+           p4: P(0.62, -0.36, 1.9, 1, -0.08, 0.05, 4 * PI),   // gros plan sur la mosaïque, en bas à droite
+           p5: P(0, 0.4, 0.62, 1, 0.3, 0, 5.5 * PI),          // au centre en haut, tour rapide
+           p6: P(-0.48, 0.04, 0.78, 1, 0.5, -0.15, 6 * PI),   // à gauche, tête visible
+           contact: P(0, 0.52, 0.52, 1, 0.15, 0, 7 * PI) },
+      m: { hero0: P(0, 0.2, 1.05, 0.1), hero1: P(0, 0.22, 1, 1),
+           p1: P(0.1, 0.4, 0.82, 1, 0.35, 0.15, PI),
+           p2: P(-0.08, 0.36, 0.95, 1, 0.1, -0.12, 2 * PI),
+           p3: P(0.02, 0.42, 0.74, 1, 0.75, -0.25, 3 * PI),
+           p4: P(0.3, 0.26, 1.45, 1, -0.08, 0.05, 4 * PI),
+           p5: P(0, 0.45, 0.72, 1, 0.3, 0, 5.5 * PI),
+           p6: P(-0.05, 0.45, 0.66, 1, 0.5, -0.15, 6 * PI),
+           contact: P(0, 0.52, 0.56, 1, 0.15, 0, 7 * PI) }
+    };
+    var FIELDS = ['x', 'y', 's', 'l', 'tx', 'tz', 'spin'];
+    var halfW = 1, halfH = 1, camRight = new THREE.Vector3(1, 0, 0), camUp = new THREE.Vector3(0, Math.cos(ELEV), -Math.sin(ELEV));
+    var sections = [].slice.call(document.querySelectorAll('[data-pose]')), keys = [], lastW = 0;
+    function computeKeys(){
+      var PS = (innerWidth / innerHeight < 0.8) ? POSES.m : POSES.d; keys = [];
+      sections.forEach(function(sec){
+        var pose = sec.getAttribute('data-pose'), top = sec.getBoundingClientRect().top + window.scrollY;
+        if (pose === 'hero'){ keys.push({ at: 0, p: PS.hero0 }); keys.push({ at: innerHeight * 0.45, p: PS.hero1 }); }
+        else keys.push({ at: Math.max(1, top + sec.offsetHeight / 2 - innerHeight / 2), p: PS[pose] });
+      });
+    }
+    function mix(a, b, t){ var o = {}; FIELDS.forEach(function(f){ o[f] = a[f] + (b[f] - a[f]) * t; }); return o; }
+    function poseAt(sy){
+      if (sy <= keys[0].at) return keys[0].p;
+      for (var k = 0; k < keys.length - 1; k++){
+        if (sy < keys[k + 1].at){
+          var t = (sy - keys[k].at) / (keys[k + 1].at - keys[k].at);
+          t = Math.min(1, Math.max(0, (t - 0.15) / 0.7)); t = t * t * (3 - 2 * t);
+          return mix(keys[k].p, keys[k + 1].p, t);
+        }
+      }
+      return keys[keys.length - 1].p;
+    }
+    function resize(){
+      var w = canvas.clientWidth, h = canvas.clientHeight;
+      renderer.setSize(w, h, false); camera.aspect = w / h;
+      var tanH = Math.tan(camera.fov * Math.PI / 360), mob = camera.aspect < 0.8;
+      var dist = Math.max((3.4 / (mob ? 0.62 : 0.74)) / 2 / tanH, (2.1 / (mob ? 0.82 : 0.6)) / 2 / (tanH * camera.aspect));
+      camera.position.set(0, Math.sin(ELEV) * dist, Math.cos(ELEV) * dist); camera.lookAt(0, 0, 0); camera.updateProjectionMatrix();
+      halfH = tanH * dist; halfW = halfH * camera.aspect;
+      if (w !== lastW){ lastW = w; computeKeys(); }
+    }
+    window.addEventListener('resize', resize);
+    window.addEventListener('load', computeKeys);
+    window.addEventListener('langchange', computeKeys);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(computeKeys);
+    resize(); computeKeys();
+
+    function beat(t){
+      var p = t % 1.6, f = 0;
+      [[0, 1, .07], [0.4, .65, .06], [0.8, .65, .06], [1.6, 1, .07]].forEach(function(b){ f += b[1] * Math.exp(-Math.pow((p - b[0]) / b[2], 2)); });
+      return Math.min(1, f);
+    }
+
+    var STILL = false;
+    var cur = mix(keys[0].p, keys[0].p, 0), rot = window.scrollY * 0.0010, idle = 0, last = performance.now(), first = true;
+    var ledBase = new THREE.Color(0x2f8cff), baseV = new THREE.Vector3();
+    function tick(now){
+      var dt = Math.min(0.05, (now - last) / 1000); last = now;
+      var sy = window.scrollY, tp = poseAt(sy), k = STILL ? 1 : 1 - Math.exp(-dt * 4.5);
+      FIELDS.forEach(function(f){ cur[f] += (tp[f] - cur[f]) * k; });
+      rot += (sy * 0.0010 - rot) * (STILL ? 1 : 1 - Math.exp(-dt * 6));
+      if (!reduce) idle += dt * 0.1;
+      pivot.rotation.y = mpivot.rotation.y = rot + idle + cur.spin;
+      tilt.rotation.set(cur.tx, 0, cur.tz); mtilt.rotation.copy(tilt.rotation);
+      // le sol descend quand la darbouka bascule (pas de collision)
+      var ang = Math.min(1.3, Math.sqrt(cur.tx * cur.tx + cur.tz * cur.tz));
+      var floorY = -(HALF * Math.cos(ang) + Math.sin(ang)) - 0.05;
+      mirror.position.y = 2 * floorY; floor.position.y = floorY; veil.position.y = floorY + 0.001;
+      veilMat.opacity = Math.min(0.92, Math.max(0, (ang - 0.25) / 0.4) * 0.92);
+      baseV.set(0, -HALF, 0).applyEuler(tilt.rotation);
+      var hgt = Math.max(0, baseV.y - floorY);
+      floorGlow.position.set(baseV.x, floorY + 0.002, baseV.z); floorGlow.scale.setScalar(1 + hgt * 0.5);
+      stage.position.set(0, 0, 0).addScaledVector(camRight, cur.x * halfW).addScaledVector(camUp, cur.y * halfH);
+      stage.scale.setScalar(cur.s);
+      var L = cur.l, b = reduce ? 0.6 : beat(now / 1000);
+      renderer.toneMappingExposure = 0.16 + 0.9 * L;
+      key.intensity = 0.1 + 1.5 * L; rimL.intensity = rimR.intensity = 0.1 + 1.3 * L;
+      ledMat.color.copy(ledBase).multiplyScalar(0.25 + 0.75 * L * (0.75 + 0.25 * b));
+      ledGlowMat.opacity = L * (0.3 + 0.35 * b);
+      floorGlowMat.opacity = L * (0.8 + 0.35 * b) * Math.exp(-hgt * 1.1);
+      blue.intensity = L * (3 + 3 * b);
+      renderer.render(scene, camera);
+      if (first){ first = false; root.classList.add('gl-ready'); }
+      if (!STILL) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+})();
+</script>
+</body>
+</html>
