@@ -145,11 +145,26 @@ html.js .reveal.in{ opacity:1; transform:none; }
 @media (max-aspect-ratio: 4/5){
   .panel{ padding:90px 6vw calc(env(safe-area-inset-bottom,0px) + 7vh); align-items:flex-end; }
   .panel.text-left, .panel.text-right, .panel.text-bottom{ justify-content:center; }
-  .panel:not(.hero) .block{ width:100%; max-width:520px; text-align:center; background:rgba(0,0,0,.5); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+  .panel:not(.hero):not(.contact) .block{ width:100%; max-width:520px; text-align:center; background:rgba(0,0,0,.5); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
     border:1px solid var(--line); border-radius:22px; padding:24px 22px; }
   .hero{ align-items:center; justify-content:flex-end; padding-bottom:18vh; }
   .steps li{ text-align:start; }
-  .contact .block{ background:rgba(0,0,0,.55); }
+  /* Contact : pas de carte, la darbouka en haut et le texte posé sur un dégradé en bas */
+  .contact{ padding-bottom:calc(env(safe-area-inset-bottom,0px) + 5vh); }
+  .contact::before{ content:''; position:absolute; left:0; right:0; bottom:0; height:64%; pointer-events:none;
+    background:linear-gradient(to top, rgba(0,0,0,.94) 0%, rgba(0,0,0,.85) 55%, rgba(0,0,0,0) 100%); }
+  .contact .block{ position:relative; width:100%; max-width:460px; text-align:center; }
+  .contact .block > *{ text-shadow:0 2px 18px rgba(0,0,0,.9); }
+  .contact h2{ font-size:clamp(2rem,9.5vw,2.8rem); margin-bottom:12px; }
+  .contact .block p{ font-size:.97rem; line-height:1.6; }
+  .contact .actions{ margin-top:22px; gap:10px; }
+  .contact .actions .btn{ padding:13px 22px; font-size:14px; }
+  .contact .actions .btn-primary{ flex:1 1 100%; justify-content:center; }
+  .contact .actions .btn-ghost{ flex:1 1 0; justify-content:center; }
+  .contact .info{ margin-top:18px; gap:4px 16px; font-size:12.5px; }
+
+  footer{ flex-wrap:nowrap; align-items:center; gap:10px; padding:14px 16px calc(14px + env(safe-area-inset-bottom,0px)); font-size:clamp(9.5px,2.8vw,12px); }
+  footer span{ white-space:nowrap; }
 }
 
 /* Hébreu : lecture de droite à gauche, mais la mise en page (côté texte / côté darbouka) reste identique */
@@ -257,7 +272,7 @@ html[lang="he"] .block p{ line-height:1.8; }
         <a class="btn btn-ghost" href="https://www.instagram.com/nathanel_darbouka/" target="_blank" rel="noopener">Instagram</a>
         <a class="btn btn-ghost" href="https://www.tiktok.com/@nathanelbensimon" target="_blank" rel="noopener">TikTok</a>
       </div>
-      <div class="info reveal" style="--d:.4s"><span dir="ltr">+972 58-729-9586</span><span data-i18n="contact.area">Paris &amp; Île-de-France</span><span data-i18n="contact.quote">Devis sur demande</span></div>
+      <div class="info reveal" style="--d:.4s"><span dir="ltr">+972 58-729-9586</span><span data-i18n="contact.area">Israel</span><span data-i18n="contact.quote">Devis sur demande</span></div>
     </div>
   </section>
 </main>
@@ -639,7 +654,7 @@ html[lang="he"] .block p{ line-height:1.8; }
            p4: P(0.3, 0.26, 1.45, 1, -0.08, 0.05, 4 * PI),
            p5: P(0, 0.45, 0.72, 1, 0.3, 0, 5.5 * PI),
            p6: P(-0.05, 0.45, 0.66, 1, 0.5, -0.15, 6 * PI),
-           contact: P(0, 0.52, 0.56, 1, 0.15, 0, 7 * PI) }
+           contact: P(0, 0.56, 0.54, 1, 0.15, 0, 7 * PI) }
     };
     var FIELDS = ['x', 'y', 's', 'l', 'tx', 'tz', 'spin'];
     var halfW = 1, halfH = 1, camRight = new THREE.Vector3(1, 0, 0), camUp = new THREE.Vector3(0, Math.cos(ELEV), -Math.sin(ELEV));
